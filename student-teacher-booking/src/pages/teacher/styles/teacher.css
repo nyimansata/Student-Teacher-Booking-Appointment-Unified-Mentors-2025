@@ -1,0 +1,103 @@
+* {
+  box-sizing: border-box;
+  font-family: "Segoe UI", Tahoma, sans-serif;
+}
+body {
+  background-color: #f4f6f8;
+  color: #1f2937;
+}
+.teacher-header {
+  background-color: #1e88e5;
+  color: #fff;
+  padding: 18px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.teacher-main {
+  padding: 24px;
+}
+.card,
+.teacher-card {
+  background: #fff;
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  border: 1px solid #e5e7eb;
+}
+.teacher-card h4 {
+  margin-bottom: 6px;
+}
+.appointment-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+.btn-approve-appt {
+  background: #16a34a;
+  color: #fff;
+  border: none;
+  padding: 8px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.btn-cancel-appt {
+  background: #dc2626;
+  color: #fff;
+  border: none;
+  padding: 8px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.success-modal {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: #2ecc71;
+  color: white;
+  padding: 12px 16px;
+  border-radius: 6px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-10px);
+  transition: all 0.3s ease;
+}
+.success-modal.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+.confirm-overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.4);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+.confirm-overlay.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+.confirm-box {
+  background: #fff;
+  padding: 16px;
+  border-radius: 8px;
+  min-width: 280px;
+}
+.confirm-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  margin-top: 12px;
+}
+.footer {
+  text-align: center;
+  padding: 12px;
+  margin-top: 24px;
+  background: #111827;
+  color: #e5e7eb;
+}

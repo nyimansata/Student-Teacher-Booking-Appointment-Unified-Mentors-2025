@@ -1,0 +1,14 @@
+{
+  "name": "student-teacher-booking",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "test": "jest"
+  },
+  "devDependencies": {
+    "jest": "^29.0.0"
+  },
+  "dependencies": {
+    "firebase": "^12.7.0"
+  }
+}

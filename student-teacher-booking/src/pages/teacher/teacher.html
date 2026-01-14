@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Teacher - Student Teacher Booking</title>
+    <link rel="stylesheet" href="./styles/teacher.css" />
+  </head>
+  <body>
+    <header class="teacher-header">
+      <h1>Teacher Dashboard</h1>
+      <div id="teacher-nav"></div>
+    </header>
+
+    <main class="teacher-main">
+      <section id="teacher-panel" class="panel">
+        <h2>Appointments</h2>
+        <div id="teacher-appointments"></div>
+
+        <!-- succesful modal -->
+        <div id="success-modal" class="success-modal">
+          <span id="success-message"></span>
+        </div>
+
+        <!-- confirm modal (reuse) -->
+        <div id="confirm-modal" class="confirm-overlay" aria-hidden="true">
+          <div class="confirm-box">
+            <p id="confirm-message"></p>
+            <div class="confirm-actions">
+              <button id="confirm-cancel">Cancel</button>
+              <button id="confirm-delete" class="btn-delete">Delete</button>
+            </div>
+          </div>
+        </div>
+
+        <section id="auth-warning" style="display: none; margin-top: 24px">
+          <p>
+            You must be signed in as a <strong>teacher</strong> to view this
+            page.
+          </p>
+          <a href="../../index.html">Go to Home / Login</a>
+        </section>
+      </section>
+
+      <!-- Templates -->
+      <template id="teacher-appointment">
+        <div class="teacher-card appointment-card">
+          <h4 class="student-name"></h4>
+          <p class="appointment-when"></p>
+          <p class="appointment-purpose"></p>
+          <p class="appointment-status"></p>
+          <div class="appointment-actions">
+            <button class="btn-approve-appt">Approve</button>
+            <button class="btn-cancel-appt">Reject</button>
+          </div>
+        </div>
+      </template>
+    </main>
+
+    <footer class="footer">
+      <p class="copy-text">&copy; Student Teacher Booking</p>
+    </footer>
+
+    <script type="module" src="../../../assets/js/teacher-page.js"></script>
+  </body>
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin - Student Teacher Booking</title>
+    <link rel="stylesheet" href="./styles/admin.css" />
+  </head>
+  <body>
+    <header class="admin-header">
+      <h1>Admin Dashboard</h1>
+      <div id="admin-nav"></div>
+    </header>
+
+    <main class="admin-main">
+      <section id="admin-panel" class="panel">
+        <h2>Admin Panel</h2>
+
+        <div id="pending-registrations" class="card">
+          <h3>Pending Teacher Registrations</h3>
+          <div id="pending-list"></div>
+        </div>
+
+        <div id="admin-teachers" class="card">
+          <h3>Manage Teachers</h3>
+          <div id="admin-teacher-list"></div>
+
+          <h4>Add Teacher</h4>
+          <div class="form-row">
+            <input id="new-teacher-name" placeholder="Name" />
+            <input id="new-teacher-email" placeholder="Email" />
+          </div>
+          <div class="form-row">
+            <input id="new-teacher-dept" placeholder="Department" />
+            <input id="new-teacher-subject" placeholder="Subject" />
+          </div>
+          <button id="btn-add-teacher">Add Teacher</button>
+        </div>
+
+        <!-- succesful modal -->
+        <div id="success-modal" class="success-modal">
+          <span id="success-message"></span>
+        </div>
+
+        <!-- delete confirmation modal -->
+        <div id="confirm-modal" class="confirm-overlay" aria-hidden="true">
+          <div class="confirm-box">
+            <p id="confirm-message"></p>
+            <div class="confirm-actions">
+              <button id="confirm-cancel">Cancel</button>
+              <button id="confirm-delete" class="btn-delete">Delete</button>
+            </div>
+          </div>
+        </div>
+
+        <div id="admin-appointments" class="card">
+          <h3>Appointments</h3>
+          <button id="btn-refresh-appointments">Refresh Appointments</button>
+          <div id="appointments-list"></div>
+        </div>
+
+        <div id="admin-logs" class="card">
+          <h3>Audit Logs</h3>
+          <button id="btn-refresh-logs">Refresh Logs</button>
+          <div id="logs"></div>
+        </div>
+
+        <template id="admin-appointment">
+          <div class="appointment-card">
+            <h4 class="student-name"></h4>
+            <p class="appointment-teacher"></p>
+            <p class="appointment-when"></p>
+            <p class="appointment-purpose"></p>
+            <p class="appointment-status"></p>
+            <div class="appointment-actions">
+              <button class="btn-approve-appt">Approve</button>
+              <button class="btn-cancel-appt">Cancel</button>
+            </div>
+          </div>
+        </template>
+      </section>
+
+      <section id="auth-warning" style="display: none; margin-top: 24px">
+        <p>
+          You must be signed in as an <strong>admin</strong> to view this page.
+        </p>
+        <a href="../../index.html">Go to Home / Login</a>
+      </section>
+
+      <!-- Templates -->
+      <template id="teacher-card">
+        <div class="teacher-card">
+          <h4 class="teacher-name"></h4>
+          <p class="teacher-dept"></p>
+          <p class="teacher-subject"></p>
+          <button class="btn-book">Book</button>
+        </div>
+      </template>
+
+      <template id="pending-teacher">
+        <div class="teacher-card">
+          <h4 class="pending-name"></h4>
+          <p class="pending-email"></p>
+          <button class="btn-approve">Approve</button>
+          <button class="btn-reject">Reject</button>
+        </div>
+      </template>
+
+      <template id="admin-teacher-card">
+        <div class="teacher-card">
+          <h4 class="teacher-name"></h4>
+          <p class="teacher-email"></p>
+          <p class="teacher-dept"></p>
+          <p class="teacher-subject"></p>
+          <button class="btn-delete">Delete</button>
+        </div>
+      </template>
+    </main>
+
+    <footer class="footer">
+      <p class="copy-text">&copy; Student Teacher Booking</p>
+    </footer>
+
+    <script type="module" src="../../../assets/js/admin-page.js"></script>
+  </body>
+</html>

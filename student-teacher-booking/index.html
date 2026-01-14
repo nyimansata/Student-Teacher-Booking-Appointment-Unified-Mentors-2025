@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Student-Teacher Booking</title>
+    <link rel="stylesheet" href="assets/css/styles.css" />
+  </head>
+  <body>
+    <header>
+      <img
+        src="./assets/images/logo-1.png"
+        alt="Student Teacher Booking"
+        class="logo"
+      />
+      <h1>Student-Teacher Booking System</h1>
+      <nav id="nav"></nav>
+    </header>
+
+    <main>
+      <section id="auth-section">
+        <div>
+          <h2>Welcome Back</h2>
+          <p class="heading-p">
+            Enter your email and password to access your account
+          </p>
+        </div>
+        <div id="register">
+          <h3>Register</h3>
+          <input id="reg-name" placeholder="Name" />
+          <input id="reg-email" placeholder="Email" />
+          <input id="reg-password" type="password" placeholder="Password" />
+          <select id="reg-role">
+            <option value="student">Student</option>
+            <option value="teacher">Teacher</option>
+          </select>
+          <button id="btn-register">Register</button>
+          <div class="continue-with-google">
+            <p class="continue-text">Or Continue with</p>
+            <button id="google-register-btn">
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 48 48"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fill="#EA4335"
+                  d="M24 9.5c3.54 0 6.74 1.22 9.26 3.6l6.9-6.9C35.98 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l8.04 6.25C12.43 13.72 17.74 9.5 24 9.5z"
+                />
+                <path
+                  fill="#4285F4"
+                  d="M46.5 24c0-1.64-.15-3.22-.43-4.75H24v9h12.7c-.55 2.96-2.22 5.47-4.7 7.15l7.2 5.6C43.9 36.36 46.5 30.7 46.5 24z"
+                />
+                <path
+                  fill="#FBBC05"
+                  d="M10.6 28.47c-.48-1.45-.76-2.99-.76-4.47s.27-3.02.76-4.47l-8.04-6.25C.92 16.46 0 20.12 0 24s.92 7.54 2.56 10.72l8.04-6.25z"
+                />
+                <path
+                  fill="#34A853"
+                  d="M24 48c6.48 0 11.93-2.14 15.9-5.8l-7.2-5.6c-2 1.34-4.56 2.14-8.7 2.14-6.26 0-11.57-4.22-13.4-9.97l-8.04 6.25C6.51 42.62 14.62 48 24 48z"
+                />
+              </svg>
+              <span> Sign in with Google </span>
+            </button>
+            <p style="text-align: center">
+              Already have an account?
+              <a
+                href="#"
+                id="show-login"
+                style="font-weight: 800; color: #4f46e5"
+                >Login</a
+              >
+            </p>
+          </div>
+        </div>
+
+        <div id="login">
+          <h3>Login</h3>
+          <div>
+            <input id="login-email" placeholder="Email" />
+            <input id="login-password" type="password" placeholder="Password" />
+          </div>
+          <button id="btn-login">Login</button>
+          <!-- modal -->
+          <div
+            id="admin-choice-modal"
+            style="display: none"
+            class="modal-backdrop"
+          >
+            <div class="modal">
+              <h3>Admin Access</h3>
+              <p>Where do you want to go?</p>
+
+              <button id="btn-admin-dashboard">User Dashboard</button>
+              <button id="btn-admin-panel">Admin Panel</button>
+            </div>
+          </div>
+
+          <!-- Booking modal for students (replaces prompt) -->
+          <div id="booking-modal" class="modal-backdrop">
+            <div class="modal">
+              <h3>Request Appointment</h3>
+              <input id="booking-purpose" placeholder="Purpose (short)" />
+              <!-- use native datetime-local picker -->
+              <input id="booking-when" type="datetime-local" />
+              <button id="booking-submit">Request</button>
+              <button id="booking-cancel">Cancel</button>
+            </div>
+          </div>
+
+          <!-- Success modal (reusable) -->
+          <div id="success-modal" class="success-modal">
+            <span id="success-message"></span>
+          </div>
+
+          <div class="continue-with-google">
+            <p class="continue-text">Or Continue with</p>
+            <button id="google-login-btn">
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 48 48"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fill="#EA4335"
+                  d="M24 9.5c3.54 0 6.74 1.22 9.26 3.6l6.9-6.9C35.98 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l8.04 6.25C12.43 13.72 17.74 9.5 24 9.5z"
+                />
+                <path
+                  fill="#4285F4"
+                  d="M46.5 24c0-1.64-.15-3.22-.43-4.75H24v9h12.7c-.55 2.96-2.22 5.47-4.7 7.15l7.2 5.6C43.9 36.36 46.5 30.7 46.5 24z"
+                />
+                <path
+                  fill="#FBBC05"
+                  d="M10.6 28.47c-.48-1.45-.76-2.99-.76-4.47s.27-3.02.76-4.47l-8.04-6.25C.92 16.46 0 20.12 0 24s.92 7.54 2.56 10.72l8.04-6.25z"
+                />
+                <path
+                  fill="#34A853"
+                  d="M24 48c6.48 0 11.93-2.14 15.9-5.8l-7.2-5.6c-2 1.34-4.56 2.14-8.7 2.14-6.26 0-11.57-4.22-13.4-9.97l-8.04 6.25C6.51 42.62 14.62 48 24 48z"
+                />
+              </svg>
+              <span> Sign in with Google </span>
+            </button>
+            <p style="text-align: center">
+              Don't have an account?
+              <a
+                href="#"
+                id="show-register"
+                style="font-weight: 800; color: #4f46e5"
+                >Register</a
+              >
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="dashboard" style="display: none">
+        <h2 id="dashboard-title">Dashboard</h2>
+        <div id="content"></div>
+
+        <!-- Admin panel -->
+        <div id="admin-panel" style="display: none; margin-top: 24px">
+          <h3>Admin Panel</h3>
+
+          <div id="pending-registrations">
+            <h4>Pending Teacher Registrations</h4>
+            <div id="pending-list"></div>
+          </div>
+
+          <!-- <div id="admin-teachers" style="margin-top: 16px">
+            <h4>Manage Teachers</h4>
+            <div id="admin-teacher-list"></div>
+            <h5>Add Teacher</h5>
+            <input id="new-teacher-name" placeholder="Name" />
+            <input id="new-teacher-email" placeholder="Email" />
+            <input id="new-teacher-dept" placeholder="Department" />
+            <input id="new-teacher-subject" placeholder="Subject" />
+            <button id="btn-add-teacher">Add Teacher</button>
+          </div> -->
+
+          <div id="admin-logs" style="margin-top: 16px">
+            <h4>Audit Logs</h4>
+            <button id="btn-refresh-logs">Refresh Logs</button>
+            <div id="logs"></div>
+          </div>
+        </div>
+      </section>
+
+      <template id="teacher-card">
+        <div class="teacher-card">
+          <h4 class="teacher-name"></h4>
+          <p class="teacher-dept"></p>
+          <p class="teacher-subject"></p>
+          <button class="btn-book">Book</button>
+        </div>
+      </template>
+
+      <template id="pending-teacher">
+        <div class="teacher-card">
+          <h4 class="pending-name"></h4>
+          <p class="pending-email"></p>
+          <button class="btn-approve">Approve</button>
+          <button class="btn-reject">Reject</button>
+        </div>
+      </template>
+
+      <template id="admin-teacher-card">
+        <div class="teacher-card">
+          <h4 class="teacher-name"></h4>
+          <p class="teacher-email"></p>
+          <p class="teacher-dept"></p>
+          <p class="teacher-subject"></p>
+          <button class="btn-delete">Delete</button>
+        </div>
+      </template>
+
+      <!-- teacher appointment template -->
+      <template id="teacher-appointment">
+        <div class="teacher-card appointment-card">
+          <h4 class="student-name"></h4>
+          <p class="appointment-when"></p>
+          <p class="appointment-purpose"></p>
+          <p class="appointment-status"></p>
+          <div class="appointment-actions">
+            <button class="btn-approve-appt">Approve</button>
+            <button class="btn-cancel-appt">Cancel</button>
+          </div>
+        </div>
+      </template>
+    </main>
+
+    <footer class="footer">
+      <p class="copy-text">&copy; Nyimansata Fofana</p>
+    </footer>
+
+    <script type="module" src="assets/js/app.js"></script>
+  </body>
+</html>
