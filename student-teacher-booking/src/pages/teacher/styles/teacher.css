@@ -17,6 +17,24 @@ body {
   justify-content: space-between;
   align-items: center;
 }
+
+.teacher-header h1 {
+  font-size: 25px;
+}
+
+#teacher-nav button {
+  background-color: #ffffff;
+  color: #4f46e5;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+}
+h2 {
+  padding-bottom: 18px;
+}
+
 .teacher-main {
   padding: 24px;
 }
@@ -105,8 +123,6 @@ body {
   padding: 20px;
   background-color: #111827;
   color: #e5e7eb;
-  margin-top: 40px;
-  font-size: 0.85rem;
   font-size: 17px;
-  bottom: 0%;
+  margin: 0%;
 }

@@ -1,16 +1,4 @@
 import { getFirebaseAuth, getFirestoreDB, firebaseStatus } from "./firebase.js";
-// import {
-//   createUserWithEmailAndPassword,
-//   signInWithEmailAndPassword,
-//   signOut,
-//   onAuthStateChanged as onAuthStateChangedFirebase,
-// } from "https://www.gstatExpected first argument to collection() to be a CollectionReference, a DocumentReference or FirebaseFirestoreic.com/firebasejs/12.7.0/firebase-auth.js";
-// import {
-//   doc,
-//   setDoc,
-//   getDoc,
-//   serverTimestamp,
-// } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-firestore.js";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -19,7 +7,6 @@ import {
   onAuthStateChanged as onAuthStateChangedFirebase,
   GoogleAuthProvider,
 } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-auth.js";
-
 import {
   doc,
   setDoc,
@@ -36,39 +23,6 @@ function ensureInitialized() {
       "Firebase not initialized. Call initFirebase() and ensure firebase config in src/services/firebase.js is set."
     );
 }
-
-// export async function registerUser({
-//   name,
-//   email,
-//   password,
-//   role = "student",
-// }) {
-//   ensureInitialized();
-//   const auth = getFirebaseAuth();
-//   const db = getFirestoreDB();
-//   try {
-//     const userCred = await createUserWithEmailAndPassword(
-//       auth,
-//       email,
-//       password
-//     );
-//     const uid = userCred.user.uid;
-//     // store user profile and role. Teacher registrations are stored with status 'pending'
-//     await setDoc(doc(db, "users", uid), {
-//       name,
-//       email,
-//       role: role === "teacher" ? "pending_teacher" : "student",
-//       createdAt: serverTimestamp(),
-//     });
-//     await logAction(uid, "register", { role });
-//     return uid;
-//   } catch (err) {
-//     console.error("registerUser error: failed added by nyima", err);
-//     // surface friendly message
-//     throw new Error(err?.message || "Registration failed");
-//   }
-// }
-//
 
 // registration function
 export async function registerUser({
@@ -165,20 +119,6 @@ export async function signInWithGoogle() {
   await logAction(user.uid, "login_google");
   return user;
 }
-
-// export async function logoutUser() {
-//   ensureInitialized();
-//   const auth = getFirebaseAuth();
-//   const uid = auth?.currentUser?.uid;
-//   try {
-//     // log logout before signing out so the write is authorized by the current session
-//     if (uid) await logAction(uid, "logout");
-//     await signOut(auth);
-//   } catch (err) {
-//     console.error("logoutUser error:", err);
-//     throw err;
-//   }
-// }
 
 export async function logoutUser() {
   const auth = getFirebaseAuth();

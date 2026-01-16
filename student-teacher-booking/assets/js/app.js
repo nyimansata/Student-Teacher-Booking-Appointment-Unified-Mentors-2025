@@ -315,26 +315,6 @@ onAuthStateChanged(async (user) => {
   }
 });
 
-// admin add teacher handler
-// const btnAddTeacher = document.getElementById("btn-add-teacher");
-// if (btnAddTeacher) {
-//   btnAddTeacher.addEventListener("click", async () => {
-//     const name = document.getElementById("new-teacher-name").value.trim();
-//     const email = document.getElementById("new-teacher-email").value.trim();
-//     const dept = document.getElementById("new-teacher-dept").value.trim();
-//     const subject = document.getElementById("new-teacher-subject").value.trim();
-//     if (!name && !email && !dept && !subject)
-//       return alert("Name email dept and subject is required");
-//     await addTeacher({ name, email, department: dept, subject });
-//     alert("Teacher added by nyima fofana");
-//     const tList = await listTeachers();
-//     renderAdminTeacherList(
-//       tList,
-//       document.getElementById("admin-teacher-list")
-//     );
-//   });
-// }
-
 // refresh logs button
 const btnRefreshLogs = document.getElementById("btn-refresh-logs");
 if (btnRefreshLogs) {

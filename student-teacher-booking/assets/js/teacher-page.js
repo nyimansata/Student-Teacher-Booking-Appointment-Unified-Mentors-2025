@@ -32,96 +32,6 @@ try {
   console.warn("firebaseStatus check failed", e);
 }
 
-// async function renderTeacherPanel(
-//   // teacherDocId,
-//   teacherUserId
-//   //  = null
-// ) {
-//   // const appointmentsContainer = document.getElementById("teacher-appointments");
-//   // appointmentsContainer.innerHTML = "";
-//   // const tmpl = document.getElementById("teacher-appointment");
-//   // // const appts = await getAppointmentsForTeacher(teacherDocId, teacherUserId);
-//   // const appts = await getAppointmentsForTeacher(teacherUserId);
-//   // console.log("Appointments fetched:", appts && appts.length, appts);
-//   // if (!appts || appts.length === 0) {
-//   //   appointmentsContainer.textContent = "No appointment requests yet.";
-//   //   return;
-//   // }
-//   const appointmentsContainer = document.getElementById("teacher-appointments");
-//   appointmentsContainer.innerHTML = "";
-
-//   const tmpl = document.getElementById("teacher-appointment");
-
-//   const appts = await getAppointmentsForTeacher(teacherUid);
-//   console.log("Appointments fetched:", appts.length, appts);
-
-//   if (appts.length === 0) {
-//     appointmentsContainer.textContent = "No appointment requests yet.";
-//     return;
-//   }
-//   appts.forEach((a) => {
-//     const node = tmpl.content.cloneNode(true);
-//     const el = node.querySelector(".appointment-card");
-//     el.querySelector(".student-name").textContent =
-//       a.studentName || a.studentId;
-//     el.querySelector(".appointment-when").textContent = a.when || "";
-//     el.querySelector(".appointment-purpose").textContent = `Purpose: ${
-//       a.purpose || ""
-//     }`;
-//     el.querySelector(".appointment-status").textContent = `Status: ${
-//       a.status || "pending"
-//     }`;
-
-//     const btnApprove = el.querySelector(".btn-approve-appt");
-//     const btnCancel = el.querySelector(".btn-cancel-appt");
-
-//     btnApprove.addEventListener("click", async () => {
-//       try {
-//         await approveAppointment(a.id);
-//         showSuccessModal("Appointment approved ✅");
-//         await renderTeacherPanel(teacherDocId, teacherUserId);
-//       } catch (err) {
-//         console.error(err);
-//         alert(err.message || "Approve failed");
-//       }
-//     });
-
-//     // Reject appointment (uses confirm modal)
-//     btnCancel.textContent = "Reject";
-//     btnCancel.addEventListener("click", async () => {
-//       const confirmModal = document.getElementById("confirm-modal");
-//       const msg = confirmModal.querySelector("#confirm-message");
-//       const btnCancelConfirm = confirmModal.querySelector("#confirm-cancel");
-//       const btnConfirm = confirmModal.querySelector("#confirm-delete");
-
-//       msg.textContent =
-//         "Reject this appointment? This will mark it as rejected.";
-//       btnConfirm.textContent = "Reject";
-//       confirmModal.classList.add("show");
-
-//       btnCancelConfirm.onclick = () => confirmModal.classList.remove("show");
-
-//       btnConfirm.onclick = async () => {
-//         try {
-//           await import("../../src/services/appointments.js").then((m) =>
-//             m.rejectAppointment(a.id)
-//           );
-//           confirmModal.classList.remove("show");
-//           showSuccessModal("Appointment rejected ❌");
-//           // await renderTeacherPanel(teacherDocId, teacherUserId);
-//           await renderTeacherPanel(teacherUserId);
-//         } catch (err) {
-//           console.error(err);
-//           alert(err.message || "Reject failed");
-//           confirmModal.classList.remove("show");
-//         }
-//       };
-//     });
-
-//     appointmentsContainer.appendChild(el);
-//   });
-// }
-
 async function renderTeacherPanel(
   teacherUid
   // teacherDocId
@@ -131,8 +41,6 @@ async function renderTeacherPanel(
 
   const tmpl = document.getElementById("teacher-appointment");
 
-  // const appts = await getAppointmentsForTeacher(teacherUid);
-  // const appts = await getAppointmentsForTeacher(teacherUid, teacherDocId);
   const appts = await getAppointmentsForTeacher(teacherUid);
   console.log(teacherUid, "this is me");
 
@@ -164,12 +72,12 @@ async function renderTeacherPanel(
 
     btnApprove.onclick = async () => {
       await approveAppointment(a.id);
-      await renderTeacherPanel(teacherUid); // ✅ correct
+      await renderTeacherPanel(teacherUid);
     };
 
     btnCancel.onclick = async () => {
       await cancelAppointment(a.id);
-      await renderTeacherPanel(teacherUid); // ✅ correct
+      await renderTeacherPanel(teacherUid);
     };
 
     appointmentsContainer.appendChild(el);
@@ -231,20 +139,8 @@ onAuthStateChanged(async (user) => {
       return;
     }
 
-    // link teacher doc to user's UID if not already linked
-    // if (!teacherDoc.data.userId) {
-    //   try {
-    //     await linkTeacherDocToUser(teacherDoc.id, user.uid);
-    //   } catch (err) {
-    //     console.warn("Could not link teacher doc to user:", err);
-    //   }
-    // }
-
-    //
-
     // 🔥 ALWAYS use auth UID for appointments
-    // 🔥 ALWAYS use auth UID for appointments
-    const teacherUid = user.uid; // ✅ FIX
+    const teacherUid = user.uid;
     const teacherDocId = teacherDoc.id; // still useful for old data
 
     console.log("Using teacher UID:", teacherUid);
@@ -252,10 +148,6 @@ onAuthStateChanged(async (user) => {
 
     await renderTeacherPanel(teacherUid, teacherDocId);
     // await renderTeacherPanel(teacherUid);
-
-    // const teacherUserId = teacherDoc.data.userId || null;
-    // await renderTeacherPanel(teacherDoc.id, teacherUserId);
-    // await renderTeacherPanel(teacherUserId);
   } catch (err) {
     console.error("Teacher auth check failed:", err);
     panel.style.display = "none";

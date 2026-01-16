@@ -87,15 +87,6 @@ export async function linkTeacherDocToUser(teacherDocId, userUid) {
     { merge: true }
   );
 }
-// teacher.js
-// export async function linkTeacherDocToUser(teacherDocId, userUid) {
-//   const db = getFirestoreDB();
-//   await setDoc(
-//     doc(db, "teachers", teacherDocId),
-//     { userId: userUid },
-//     { merge: true }
-//   );
-// }
 
 // Basic UI helper to render teachers into a container
 let __bookingModalInitialized = false;

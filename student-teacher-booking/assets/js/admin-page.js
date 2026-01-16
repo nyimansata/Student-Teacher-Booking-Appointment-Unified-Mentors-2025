@@ -182,31 +182,6 @@ document.addEventListener("teacher-deleted", (e) => {
 });
 
 // wire up add teacher
-// const btnAddTeacher = document.getElementById("btn-add-teacher");
-// if (btnAddTeacher) {
-//   btnAddTeacher.addEventListener("click", async () => {
-//     const name = document.getElementById("new-teacher-name").value.trim();
-//     const email = document.getElementById("new-teacher-email").value.trim();
-//     const dept = document.getElementById("new-teacher-dept").value.trim();
-//     const subject = document.getElementById("new-teacher-subject").value.trim();
-//     if (!name) return alert("Name required from admin itself");
-//     try {
-//       await addTeacherService({ name, email, department: dept, subject });
-//       // alert("Teacher added from admin itself");
-//       showSuccessModal("Teacher added successfully ✅");
-//       // reset fields
-//       document.getElementById("new-teacher-name").value = "";
-//       document.getElementById("new-teacher-email").value = "";
-//       document.getElementById("new-teacher-dept").value = "";
-//       document.getElementById("new-teacher-subject").value = "";
-//       refreshTeacherList();
-//       refreshLogs();
-//     } catch (err) {
-//       console.error(err);
-//       alert(err.message || "Add teacher failed");
-//     }
-//   });
-// }
 document
   .querySelectorAll(
     "#new-teacher-name, #new-teacher-email, #new-teacher-dept, #new-teacher-subject"
@@ -280,34 +255,6 @@ if (btnRefreshLogs) {
     await refreshLogs();
   });
 }
-
-// auth state
-// onAuthStateChanged((user) => {
-//   const panel = document.getElementById("admin-panel");
-//   const authWarning = document.getElementById("auth-warning");
-//   const nav = document.getElementById("admin-nav");
-//   nav.innerHTML = "";
-
-//   if (user && user.profile && user.profile.role === "admin") {
-//     authWarning.style.display = "none";
-//     panel.style.display = "block";
-
-//     // add logout button
-//     const btnLogout = document.createElement("button");
-//     btnLogout.textContent = "Logout";
-//     btnLogout.id = "btn-logout";
-//     btnLogout.addEventListener("click", async () => {
-//       await logoutUser();
-//       location.reload();
-//     });
-//     nav.appendChild(btnLogout);
-
-//     renderAdminPanel();
-//   } else {
-//     panel.style.display = "none";
-//     authWarning.style.display = "block";
-//   }
-// });
 
 onAuthStateChanged(async (user) => {
   const panel = document.getElementById("admin-panel");

@@ -48,7 +48,7 @@ export async function approveTeacherRegistration(
     department,
     subject,
     // userId,
-    userId: userId, // ✅ LINK TO AUTH USER
+    userId: userId,
     createdAt: serverTimestamp(),
   });
   await logAction(userId, "approve_teacher");
