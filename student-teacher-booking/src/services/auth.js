@@ -166,18 +166,23 @@ export async function signInWithGoogle() {
   return user;
 }
 
+// export async function logoutUser() {
+//   ensureInitialized();
+//   const auth = getFirebaseAuth();
+//   const uid = auth?.currentUser?.uid;
+//   try {
+//     // log logout before signing out so the write is authorized by the current session
+//     if (uid) await logAction(uid, "logout");
+//     await signOut(auth);
+//   } catch (err) {
+//     console.error("logoutUser error:", err);
+//     throw err;
+//   }
+// }
+
 export async function logoutUser() {
-  ensureInitialized();
   const auth = getFirebaseAuth();
-  const uid = auth?.currentUser?.uid;
-  try {
-    // log logout before signing out so the write is authorized by the current session
-    if (uid) await logAction(uid, "logout");
-    await signOut(auth);
-  } catch (err) {
-    console.error("logoutUser error:", err);
-    throw err;
-  }
+  await signOut(auth);
 }
 
 export function onAuthStateChanged(cb) {

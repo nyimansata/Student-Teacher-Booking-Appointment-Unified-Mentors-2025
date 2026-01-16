@@ -1,4 +1,6 @@
 * {
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
   font-family: "Segoe UI", Tahoma, sans-serif;
 }
@@ -6,6 +8,7 @@ body {
   background-color: #f4f6f8;
   color: #1f2937;
 }
+
 .teacher-header {
   background-color: #1e88e5;
   color: #fff;
@@ -94,10 +97,16 @@ body {
   justify-content: flex-end;
   margin-top: 12px;
 }
+/* =========================
+   FOOTER
+========================= */
 .footer {
   text-align: center;
-  padding: 12px;
-  margin-top: 24px;
-  background: #111827;
+  padding: 20px;
+  background-color: #111827;
   color: #e5e7eb;
+  margin-top: 40px;
+  font-size: 0.85rem;
+  font-size: 17px;
+  bottom: 0%;
 }
