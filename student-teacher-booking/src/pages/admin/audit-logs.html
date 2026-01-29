@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Audit Logs - Admin</title>
+    <link rel="stylesheet" href="./styles/admin.css" />
+  </head>
+  <body>
+    <main class="admin-main audit-logs-main">
+      <section id="admin-panel" class="panel">
+        <h2 style="margin-top: 40px; margin-left: 40px; padding-bottom: 10px">
+          Audit Logs
+        </h2>
+
+        <div id="admin-logs" class="card audit-logs-card">
+          <button id="btn-refresh-logs">Refresh Logs</button>
+          <div id="logs"></div>
+        </div>
+
+        <div id="auth-warning" style="display: none; margin-top: 24px">
+          <p>
+            You must be signed in as an <strong>admin</strong> to view this
+            page.
+          </p>
+          <a href="../../index.html">Go to Home / Login</a>
+        </div>
+      </section>
+    </main>
+
+    <script type="module" src="../../../assets/js/audit-logs.js"></script>
+  </body>
+</html>

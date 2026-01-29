@@ -139,7 +139,7 @@ async function refreshAppointments() {
 }
 
 const btnRefreshAppointments = document.getElementById(
-  "btn-refresh-appointments"
+  "btn-refresh-appointments",
 );
 if (btnRefreshAppointments) {
   btnRefreshAppointments.addEventListener("click", async () => {
@@ -181,10 +181,24 @@ document.addEventListener("teacher-deleted", (e) => {
   showSuccessModal("Teacher deleted successfully ✅");
 });
 
+// Respond to approvals
+document.addEventListener("teacher-approved", (e) => {
+  refreshTeacherList();
+  refreshLogs();
+  showSuccessModal("Teacher approved successfully ✅");
+});
+
+// Respond to updates
+document.addEventListener("teacher-updated", (e) => {
+  refreshTeacherList();
+  refreshLogs();
+  showSuccessModal("Teacher updated successfully ✅");
+});
+
 // wire up add teacher
 document
   .querySelectorAll(
-    "#new-teacher-name, #new-teacher-email, #new-teacher-dept, #new-teacher-subject"
+    "#new-teacher-name, #new-teacher-email, #new-teacher-dept, #new-teacher-subject",
   )
   .forEach((input) => {
     input.addEventListener("input", () => {
@@ -247,21 +261,9 @@ if (btnAddTeacher) {
   });
 }
 
-const btnRefreshLogs = document.getElementById("btn-refresh-logs");
-if (btnRefreshLogs) {
-  btnRefreshLogs.addEventListener("click", async () => {
-    const logsContainer = document.getElementById("logs");
-    logsContainer.innerHTML = "Refreshing...";
-    await refreshLogs();
-  });
-}
-
 onAuthStateChanged(async (user) => {
   const panel = document.getElementById("admin-panel");
   const authWarning = document.getElementById("auth-warning");
-  const nav = document.getElementById("admin-nav");
-
-  nav.innerHTML = "";
 
   if (!user) {
     panel.style.display = "none";
@@ -284,17 +286,6 @@ onAuthStateChanged(async (user) => {
     if (role === "admin") {
       authWarning.style.display = "none";
       panel.style.display = "block";
-
-      // Logout button
-      const btnLogout = document.createElement("button");
-      btnLogout.textContent = "Logout";
-      btnLogout.id = "btn-logout";
-      btnLogout.addEventListener("click", async () => {
-        await logoutUser();
-        location.reload();
-      });
-      nav.appendChild(btnLogout);
-
       renderAdminPanel();
     } else {
       panel.style.display = "none";
@@ -304,5 +295,36 @@ onAuthStateChanged(async (user) => {
     console.error("Admin auth check failed:", err);
     panel.style.display = "none";
     authWarning.style.display = "block";
+  }
+});
+
+// Admin sidebar with navigation
+document.addEventListener("DOMContentLoaded", () => {
+  const sidebar = document.createElement("aside");
+  sidebar.className = "admin-sidebar";
+
+  sidebar.innerHTML = `
+    <h2>Admin</h2>
+    <a href="./admin.html">Dashboard</a>
+    <a href="./teachers.html">Available Teachers</a>
+    <a href="./appointments.html">Appointments</a>
+    <a href="./audit-logs.html">Audit Logs</a>
+    <button id="sidebar-logout-btn" style="margin-top: auto;">Logout</button>
+  `;
+
+  document.body.prepend(sidebar);
+
+  // Add logout functionality
+  const logoutBtn = document.getElementById("sidebar-logout-btn");
+  if (logoutBtn) {
+    logoutBtn.addEventListener("click", async () => {
+      try {
+        await logoutUser();
+        window.location.href = "../../../index.html";
+      } catch (err) {
+        console.error("Logout failed:", err);
+        window.location.href = "../../../index.html";
+      }
+    });
   }
 });

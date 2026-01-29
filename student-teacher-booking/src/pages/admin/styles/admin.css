@@ -5,36 +5,88 @@
   font-family: "Segoe UI", Tahoma, sans-serif;
 }
 
+html,
+body {
+  height: 100%;
+  width: 100%;
+}
+
 body {
   background-color: #f4f6f8;
   color: #1f2937;
 }
 
-.admin-header {
-  background-color: #4f46e5;
-  color: #ffffff;
-  padding: 20px 30px;
+/* ===== ADMIN SIDEBAR ===== */
+.admin-sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 250px;
+  height: 100vh;
+  background: linear-gradient(to bottom, #1e293b, #0f172a);
+  color: #fff;
+  padding: 20px;
+  box-sizing: border-box;
+  z-index: 1000;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
+  overflow-y: auto;
 }
 
-.admin-header h1 {
-  font-size: 1.6rem;
+.admin-sidebar h2 {
+  font-size: 18px;
+  margin-bottom: 24px;
+  color: #e0e7ff;
+  font-weight: 700;
 }
 
-#admin-nav button {
-  background-color: #ffffff;
-  color: #4f46e5;
-  border: none;
-  padding: 8px 14px;
+.admin-sidebar a {
+  display: block;
+  color: #cbd5e1;
+  text-decoration: none;
+  padding: 12px 14px;
   border-radius: 6px;
-  cursor: pointer;
+  margin-bottom: 8px;
+  transition: all 0.3s ease;
+}
+
+.admin-sidebar a:hover {
+  background: #334155;
+  color: #fff;
+  transform: translateX(4px);
+}
+
+.admin-sidebar a.active {
+  background: #4f46e5;
+  color: #fff;
   font-weight: 600;
 }
 
-#admin-nav button:hover {
-  background-color: #e0e7ff;
+.admin-sidebar button {
+  background-color: #dc2626;
+  color: #ffffff;
+  border: none;
+  padding: 12px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  width: 100%;
+  margin-top: auto;
+  transition: background-color 0.3s ease;
+}
+
+.admin-sidebar button:hover {
+  background-color: #b91c1c;
+}
+
+/* Push layout for sidebar */
+.admin-main,
+.footer {
+  margin-left: 250px;
+}
+
+.admin-header {
+  display: none;
 }
 
 /* =========================
@@ -42,6 +94,14 @@ body {
 ========================= */
 .admin-main {
   padding: 30px;
+  min-height: calc(100vh - 100px);
+}
+
+.admin-main.audit-logs-main {
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 0px);
 }
 
 .panel h2 {
@@ -63,6 +123,17 @@ body {
 .card h4 {
   margin-bottom: 15px;
   color: #111827;
+}
+
+.audit-logs-card {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  border-radius: 0;
+  margin-bottom: 0;
+  height: 100%;
+  padding: 0;
+  box-shadow: none;
 }
 
 /* =========================
@@ -152,6 +223,7 @@ button {
 
 .teacher-card h4 {
   margin-bottom: 4px;
+  font-size: 1rem;
 }
 
 .teacher-card p {
@@ -160,27 +232,423 @@ button {
   margin-bottom: 4px;
 }
 
-.teacher-card button {
-  margin-right: 6px;
-  margin-top: 6px;
+.teacher-status {
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 8px !important;
+}
+
+.teacher-actions,
+.appointment-actions {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+
+.teacher-actions button,
+.appointment-actions button {
+  padding: 6px 10px;
+  font-size: 0.8rem;
+  flex: 1;
+  min-width: 60px;
+}
+
+.btn-approve {
+  background-color: #16a34a;
+  color: #ffffff;
+}
+
+.btn-approve:hover:not(:disabled) {
+  background-color: #15803d;
+}
+
+.btn-approve:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-edit {
+  background-color: #2563eb;
+  color: #ffffff;
+}
+
+.btn-edit:hover {
+  background-color: #1d4ed8;
 }
 
 /* =========================
    LOGS
 ========================= */
+#btn-refresh-logs {
+  background-color: #374151;
+  color: #ffffff;
+  padding: 10px 15px;
+  margin: 0;
+  border-radius: 0;
+}
+
+#btn-refresh-logs:hover {
+  background-color: #1f2937;
+}
+
 #logs {
-  max-height: 250px;
+  flex: 1;
   overflow-y: auto;
   background-color: #0f172a;
   color: #e5e7eb;
-  padding: 10px;
-  border-radius: 6px;
+  padding: 15px;
   font-size: 0.8rem;
 }
 
 #logs div {
-  padding: 4px 0;
+  padding: 8px 0;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+#logs div:last-child {
+  border-bottom: none;
+}
+
+/* ===== ADMIN SIDEBAR ===== */
+.admin-sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 240px;
+  height: 100vh;
+  background: #1e293b;
+  color: #fff;
+  padding: 20px;
+  box-sizing: border-box;
+  z-index: 1000;
+}
+
+.admin-sidebar h2 {
+  font-size: 18px;
+  margin-bottom: 24px;
+}
+
+.admin-sidebar a {
+  display: block;
+  color: #cbd5e1;
+  text-decoration: none;
+  padding: 10px 12px;
+  border-radius: 6px;
+  margin-bottom: 6px;
+}
+
+.admin-sidebar a:hover {
+  background: #334155;
+  color: #fff;
+}
+
+/* Push existing layout */
+.admin-header,
+.admin-main,
+.footer {
+  margin-left: 240px;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .admin-sidebar {
+    width: 200px;
+  }
+
+  .admin-header,
+  .admin-main,
+  .footer {
+    margin-left: 200px;
+  }
+}
+
+/* ===== ADMIN SIDEBAR ===== */
+.admin-sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 240px;
+  height: 100vh;
+  background: #1e293b;
+  color: #fff;
+  padding: 20px;
+  box-sizing: border-box;
+  z-index: 1000;
+}
+
+.admin-sidebar h2 {
+  font-size: 18px;
+  margin-bottom: 24px;
+}
+
+.admin-sidebar a {
+  display: block;
+  color: #cbd5e1;
+  text-decoration: none;
+  padding: 10px 12px;
+  border-radius: 6px;
+  margin-bottom: 6px;
+}
+
+.admin-sidebar a:hover {
+  background: #334155;
+  color: #fff;
+}
+
+/* Push existing layout */
+.admin-header,
+.admin-main,
+.footer {
+  margin-left: 240px;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .admin-sidebar {
+    width: 200px;
+  }
+
+  .admin-header,
+  .admin-main,
+  .footer {
+    margin-left: 200px;
+  }
+}
+
+/* ===== ADMIN SIDEBAR ===== */
+.admin-sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 240px;
+  height: 100vh;
+  background: #1e293b;
+  color: #fff;
+  padding: 20px;
+  box-sizing: border-box;
+  z-index: 1000;
+}
+
+.admin-sidebar h2 {
+  font-size: 18px;
+  margin-bottom: 24px;
+}
+
+.admin-sidebar a {
+  display: block;
+  color: #cbd5e1;
+  text-decoration: none;
+  padding: 10px 12px;
+  border-radius: 6px;
+  margin-bottom: 6px;
+}
+
+.admin-sidebar a:hover {
+  background: #334155;
+  color: #fff;
+}
+
+/* Push existing layout */
+.admin-header,
+.admin-main,
+.footer {
+  margin-left: 240px;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .admin-sidebar {
+    width: 200px;
+  }
+
+  .admin-header,
+  .admin-main,
+  .footer {
+    margin-left: 200px;
+  }
+}
+
+/* ===== ADMIN SIDEBAR ===== */
+.admin-sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 240px;
+  height: 100vh;
+  background: #1e293b;
+  color: #fff;
+  padding: 20px;
+  box-sizing: border-box;
+  z-index: 1000;
+}
+
+.admin-sidebar h2 {
+  font-size: 18px;
+  margin-bottom: 24px;
+}
+
+.admin-sidebar a {
+  display: block;
+  color: #cbd5e1;
+  text-decoration: none;
+  padding: 10px 12px;
+  border-radius: 6px;
+  margin-bottom: 6px;
+}
+
+.admin-sidebar a:hover {
+  background: #334155;
+  color: #fff;
+}
+
+/* Push existing layout */
+.admin-header,
+.admin-main,
+.footer {
+  margin-left: 240px;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .admin-sidebar {
+    width: 200px;
+  }
+
+  .admin-header,
+  .admin-main,
+  .footer {
+    margin-left: 200px;
+  }
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+@media (max-width: 1024px) {
+  .admin-sidebar {
+    width: 220px;
+  }
+
+  .admin-main,
+  .footer {
+    margin-left: 220px;
+  }
+
+  .admin-main {
+    padding: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .admin-sidebar {
+    width: 70px;
+    padding: 10px 5px;
+  }
+
+  .admin-sidebar h2 {
+    font-size: 14px;
+    margin-bottom: 15px;
+  }
+
+  .admin-sidebar a {
+    padding: 10px 8px;
+    font-size: 0.7rem;
+    text-align: center;
+    margin-bottom: 5px;
+  }
+
+  .admin-sidebar button {
+    padding: 8px 5px;
+    font-size: 0.7rem;
+  }
+
+  .admin-main,
+  .footer {
+    margin-left: 70px;
+  }
+
+  .admin-main {
+    padding: 15px;
+  }
+
+  .card {
+    padding: 15px;
+    margin-bottom: 15px;
+  }
+
+  .form-row {
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  input {
+    padding: 8px;
+  }
+
+  .teacher-actions button,
+  .appointment-actions button {
+    padding: 5px 8px;
+    font-size: 0.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .admin-sidebar {
+    width: 60px;
+    padding: 5px;
+  }
+
+  .admin-sidebar h2,
+  .admin-sidebar a,
+  .admin-sidebar button {
+    display: none;
+  }
+
+  .admin-sidebar h2 {
+    display: block;
+    font-size: 10px;
+  }
+
+  .admin-main,
+  .footer {
+    margin-left: 60px;
+  }
+
+  .admin-main {
+    padding: 10px;
+  }
+
+  .card {
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+
+  .panel h2 {
+    font-size: 1.3rem;
+  }
+
+  .card h3 {
+    font-size: 1rem;
+  }
+
+  button {
+    padding: 6px 10px;
+    font-size: 0.8rem;
+  }
+
+  input {
+    padding: 6px;
+    font-size: 0.85rem;
+  }
+
+  .teacher-card {
+    padding: 8px;
+  }
+
+  .teacher-actions button,
+  .appointment-actions button {
+    padding: 4px 6px;
+    font-size: 0.7rem;
+  }
 }
 
 /* =========================
