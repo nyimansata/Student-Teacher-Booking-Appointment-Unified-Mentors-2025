@@ -7,16 +7,6 @@
     <link rel="stylesheet" href="assets/css/styles.css" />
   </head>
   <body>
-    <header>
-      <img
-        src="./assets/images/logo-1.png"
-        alt="Student Teacher Booking"
-        class="logo"
-      />
-      <h1>Student-Teacher Booking System</h1>
-      <nav id="nav"></nav>
-    </header>
-
     <main>
       <section id="auth-section">
         <div>
@@ -97,22 +87,6 @@
             </div>
           </div>
 
-          <!-- Booking modal for students (replaces prompt) -->
-          <div id="booking-modal" class="modal-backdrop">
-            <div class="modal">
-              <h3>Request Appointment</h3>
-              <input id="booking-purpose" placeholder="Purpose (short)" />
-              <!-- use native datetime-local picker -->
-              <input id="booking-when" type="datetime-local" />
-              <button id="booking-submit">Request</button>
-              <button id="booking-cancel">Cancel</button>
-            </div>
-          </div>
-
-          <!-- Success modal (reusable) -->
-          <div id="success-modal" class="success-modal">
-            <span id="success-message"></span>
-          </div>
 
           <div class="continue-with-google">
             <p class="continue-text">Or Continue with</p>
@@ -154,47 +128,9 @@
           </div>
         </div>
       </section>
+       
 
-  
-
-
-      <template id="pending-teacher">
-        <div class="teacher-card">
-          <h4 class="pending-name"></h4>
-          <p class="pending-email"></p>
-          <button class="btn-approve">Approve</button>
-          <button class="btn-reject">Reject</button>
-        </div>
-      </template>
-
-      <template id="admin-teacher-card">
-        <div class="teacher-card">
-          <h4 class="teacher-name"></h4>
-          <p class="teacher-email"></p>
-          <p class="teacher-dept"></p>
-          <p class="teacher-subject"></p>
-          <button class="btn-delete">Delete</button>
-        </div>
-      </template>
-
-      <!-- teacher appointment template -->
-      <template id="teacher-appointment">
-        <div class="teacher-card appointment-card">
-          <h4 class="student-name"></h4>
-          <p class="appointment-when"></p>
-          <p class="appointment-purpose"></p>
-          <p class="appointment-status"></p>
-          <div class="appointment-actions">
-            <button class="btn-approve-appt">Approve</button>
-            <button class="btn-cancel-appt">Cancel</button>
-          </div>
-        </div>
-      </template>
     </main>
-
-    <footer class="footer">
-      <p class="copy-text">&copy; Nyimansata Fofana</p>
-    </footer>
 
     <script type="module" src="assets/js/app.js"></script>
   </body>
