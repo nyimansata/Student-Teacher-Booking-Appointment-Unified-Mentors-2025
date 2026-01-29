@@ -112,7 +112,7 @@ async function refreshAppointments() {
     btnApprove.addEventListener("click", async () => {
       try {
         await approveAppointment(a.id);
-        showSuccessModal("Appointment approved ✅");
+        showSuccessModal("Appointment approved ");
         refreshAppointments();
         refreshLogs();
       } catch (err) {
@@ -125,7 +125,7 @@ async function refreshAppointments() {
       if (!confirm("Cancel this appointment?")) return;
       try {
         await cancelAppointment(a.id);
-        showSuccessModal("Appointment cancelled ✅");
+        showSuccessModal("Appointment cancelled ");
         refreshAppointments();
         refreshLogs();
       } catch (err) {
@@ -178,21 +178,21 @@ document.addEventListener("teacher-deleted", (e) => {
   // refresh UI and logs
   refreshTeacherList();
   refreshLogs();
-  showSuccessModal("Teacher deleted successfully ✅");
+  showSuccessModal("Teacher deleted successfully ");
 });
 
 // Respond to approvals
 document.addEventListener("teacher-approved", (e) => {
   refreshTeacherList();
   refreshLogs();
-  showSuccessModal("Teacher approved successfully ✅");
+  showSuccessModal("Teacher approved successfully ");
 });
 
 // Respond to updates
 document.addEventListener("teacher-updated", (e) => {
   refreshTeacherList();
   refreshLogs();
-  showSuccessModal("Teacher updated successfully ✅");
+  showSuccessModal("Teacher updated successfully ");
 });
 
 // wire up add teacher
@@ -245,7 +245,7 @@ if (btnAddTeacher) {
       deptInput.value = "";
       subjectInput.value = "";
 
-      // ✅ remove red borders explicitly
+      //  remove red borders explicitly
       nameInput.classList.remove("input-error");
       emailInput.classList.remove("input-error");
       deptInput.classList.remove("input-error");
@@ -253,7 +253,7 @@ if (btnAddTeacher) {
 
       refreshTeacherList();
       refreshLogs();
-      showSuccessModal("Teacher added successfully ✅");
+      showSuccessModal("Teacher added successfully ");
     } catch (err) {
       console.error(err);
       alert(err.message || "Add teacher failed");
@@ -306,7 +306,7 @@ document.addEventListener("DOMContentLoaded", () => {
   sidebar.innerHTML = `
     <h2>Admin</h2>
     <a href="./admin.html">Dashboard</a>
-    <a href="./teachers.html">Available Teachers</a>
+    <a href="./book.html">Available Teachers</a>
     <a href="./appointments.html">Appointments</a>
     <a href="./audit-logs.html">Audit Logs</a>
     <button id="sidebar-logout-btn" style="margin-top: auto;">Logout</button>

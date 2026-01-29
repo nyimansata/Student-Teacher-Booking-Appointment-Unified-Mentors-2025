@@ -10,9 +10,9 @@ body {
 }
 
 .teacher-header {
-  background-color: #1e88e5;
+  background: linear-gradient(135deg, #6a11cb, #2575fc);
   color: #fff;
-  padding: 18px 30px;
+  padding: 18px 120px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -121,7 +121,9 @@ h2 {
 .footer {
   text-align: center;
   padding: 20px;
-  background-color: #111827;
+  /* background-color: #111827; */
+  background: linear-gradient(to bottom, #1e293b, #0f172a);
+
   color: #e5e7eb;
   font-size: 17px;
   margin: 0%;
