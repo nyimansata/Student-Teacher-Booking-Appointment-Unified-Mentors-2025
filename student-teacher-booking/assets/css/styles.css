@@ -1,169 +1,196 @@
-/* Only global styles here */
-
-/* Auth section */
-#auth-section {
-  display: flex;
-  flex-direction: column;
-  max-width: 400px;
-  margin: 40px auto;
-  padding: 20px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  background-color: #fafafa;
+/* RESET + BASE */
+* {
+  box-sizing: border-box;
+  font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont,
+    sans-serif;
 }
 
-#auth-section h2 {
-  text-align: center;
-  margin-bottom: 10px;
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: #f5f7fb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* AUTH CARD */
+#auth-section {
+  width: 100%;
+  max-width: 420px;
+  background: #ffffff;
+  padding: 32px;
+  border-radius: 14px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  margin: 40px 0px;
+}
+
+/* HEADINGS */
+#auth-section h2,
+#auth-section h3 {
+  margin: 0 0 6px;
+  font-weight: 700;
+  color: #111827;
 }
 
 .heading-p {
-  text-align: center;
-  font-size: small;
-  color: gray;
-  margin-bottom: 50px;
+  margin-bottom: 24px;
+  font-size: 14px;
+  color: #6b7280;
 }
 
-#register,
-#login {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-bottom: 20px;
+/* INPUT GROUPS */
+#auth-section label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 6px;
+  display: block;
 }
 
 #auth-section input,
 #auth-section select {
-  padding: 10px;
-  font-size: 14px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-#btn-register,
-#btn-login {
-  padding: 10px;
-  font-size: 14px;
-  border: none;
-  border-radius: 4px;
-  background-color: #4f46e5;
-  color: white;
-  cursor: pointer;
-  margin-top: 20px;
   width: 100%;
-}
-
-#auth-section button:hover #btn-register {
-  background-color: #4338ca;
-}
-
-.continue-with-google {
-  display: flex;
-  flex-direction: column;
-  max-width: 400px;
-  margin: 20px auto;
-  padding: 20px;
+  padding: 12px 14px;
+  margin-bottom: 14px;
   border-radius: 8px;
+  border: 1px solid #e5e7eb;
+  font-size: 14px;
+  outline: none;
+  transition: all 0.2s ease;
 }
 
-#google-register-btn,
-#google-login-btn {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 15px;
-  cursor: pointer;
-  padding: 10px;
-  justify-content: center;
-  background-color: #f8f6f6;
+#auth-section input::placeholder {
+  color: #9ca3af;
+}
+
+#auth-section input:focus,
+#auth-section select:focus {
+  border-color: #4f46e5;
+  box-shadow: 0 0 0 3px rgba(184, 153, 232, 0.15);
+}
+
+/* PRIMARY BUTTON */
+#btn-login,
+#btn-register {
+  width: 100%;
+  padding: 13px;
   border-radius: 10px;
-  margin: 20px 0px;
   border: none;
+  background: linear-gradient(180deg, #4f46e5, #4f46e5);
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+  margin-top: 8px;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+#btn-login:hover,
+#btn-register:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px #4f46e5;
+}
+
+/* CONTINUE WITH */
+.continue-with-google {
+  margin-top: 24px;
 }
 
 .continue-text {
   text-align: center;
+  font-size: 13px;
+  color: #6b7280;
+  position: relative;
+  margin-bottom: 16px;
+}
+
+.continue-text::before,
+.continue-text::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 35%;
+  height: 1px;
+  background: #e5e7eb;
+}
+
+.continue-text::before {
+  left: 0;
+}
+
+.continue-text::after {
+  right: 0;
+}
+
+/* GOOGLE BUTTON */
+#google-login-btn,
+#google-register-btn {
+  width: 100%;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  cursor: pointer;
+  font-size: 14px;
   font-weight: 500;
-  font-size: medium;
+  color: #111827;
+  transition: background 0.15s ease, box-shadow 0.15s ease;
 }
 
-button:disabled {
-  opacity: 0.6;
+#google-login-btn:hover,
+#google-register-btn:hover {
+  background: #f9fafb;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
 }
 
-#nav {
-  display: flex;
-  gap: 8px;
+/* SWITCH LINKS */
+#auth-section a {
+  text-decoration: none;
+  font-size: 14px;
 }
 
-.google_btn {
-  border: none;
+#auth-section a:hover {
+  text-decoration: underline;
 }
 
-/* Admin styles */
-#admin-panel {
-  background: #fff;
-  border: 1px solid #e3e3e3;
-  padding: 12px;
-  border-radius: 6px;
-}
-#pending-list > .teacher-card,
-#admin-teacher-list > .teacher-card {
-  margin-bottom: 8px;
-}
-#logs {
-  max-height: 240px;
-  overflow: auto;
-  background: #fff;
-  padding: 8px;
-  border: 1px solid #eee;
-  margin-top: 8px;
-}
-
-.appointment-actions {
-  display: flex;
-  gap: 8px;
-  margin-top: 8px;
-}
-
-.appointment-card .appointment-status {
-  font-weight: 600;
-  font-size: 0.95rem;
-  color: #374151;
-}
-
-/* visibility */
+/* LOGIN / REGISTER TOGGLE */
 #register {
   display: none;
 }
 
-#login {
-  display: block;
-}
-
-.auth-section {
-  display: block;
-}
-
-/* confirm modal used in teacher page */
-.confirm-overlay {
+/* MODAL */
+.modal-backdrop {
   position: fixed;
   inset: 0;
-  display: none;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(0, 0, 0, 0.5);
-  z-index: 9999;
+  z-index: 1000;
 }
 
-.confirm-overlay.show {
-  display: flex;
-}
-
-.confirm-box {
-  background: #fff;
-  padding: 16px;
-  border-radius: 8px;
-  width: 320px;
+.modal {
+  background: #ffffff;
+  padding: 24px;
+  border-radius: 14px;
+  width: 90%;
+  max-width: 320px;
   text-align: center;
+}
+
+.modal button {
+  width: 100%;
+  margin-top: 10px;
+  padding: 12px;
+  border-radius: 8px;
+  border: none;
+  background: #4f46e5;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
 }
