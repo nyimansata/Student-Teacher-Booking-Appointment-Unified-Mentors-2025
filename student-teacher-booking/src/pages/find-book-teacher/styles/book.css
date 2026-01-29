@@ -1,0 +1,466 @@
+/* General reset and body styles */
+* {
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+body {
+  margin: 0;
+  padding: 0;
+  background: #f5f7fb;
+  color: #222;
+}
+
+/* Header styles */
+header {
+  background: linear-gradient(135deg, #6a11cb, #2575fc);
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 100px;
+}
+
+header h1 {
+  font-size: 25px; /* Default h1 size */
+  margin: 0; /* Remove default margin */
+}
+
+#nav button {
+  background-color: #ffffff;
+  color: #4f46e5;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+/* Specific nav button for logout on book.html */
+#nav button.btn-logout {
+  margin-left: auto; /* Push logout button to the far right */
+  background-color: #ffffff;
+  color: #1e88e5;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+/* Hero section styles */
+/* .hero {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  padding: 50px 20px;
+  background: linear-gradient(to right, #e0f7fa, #ffffff);
+  gap: 40px;
+  flex-wrap: wrap-reverse;
+}
+
+.hero-text {
+  max-width: 500px;
+  text-align: center;
+}
+
+.hero-text h2 {
+  font-size: 2.5em;
+  color: #0d47a1;
+  margin-bottom: 20px;
+}
+
+.hero-text p {
+  font-size: 1.1em;
+  color: #37474f;
+  line-height: 1.6;
+}
+
+.hero-image .image-card {
+  background: #ffffff;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  width: 350px;
+  height: 250px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-image img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: cover;
+} */
+
+
+/* =======================
+   HERO SECTION (BLUE)
+======================= */
+.hero {
+  background: linear-gradient(135deg, #6a11cb, #2575fc);
+  color: #fff;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  padding: 60px;
+  gap: 30px;
+  padding: 40px 120px;
+  margin-bottom: 40px;
+
+  /* nice curve to separate blue & white */
+  border-bottom-left-radius: 40px;
+  border-bottom-right-radius: 40px;
+}
+
+.hero-text h2 {
+  font-size: 42px;
+  line-height: 1.2;
+  margin-bottom: 20px;
+}
+
+.hero-text p {
+  font-size: 15px;
+  opacity: 0.9;
+  max-width: 480px;
+}
+
+/* =======================
+   HERO IMAGE
+======================= */
+.hero-image {
+  display: flex;
+  justify-content: center;
+}
+
+.image-card {
+  background: #fff;
+  padding: 12px;
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+.image-card img {
+  width: 320px;
+  border-radius: 15px;
+  display: block;
+}
+
+/* =======================
+   BOOKING BAR (FIXED)
+======================= */
+.booking-bar {
+  background: #ffffff;
+  color: #333;
+
+  /* center it properly */
+  max-width: 1100px;
+  margin: -60px auto 60px;
+
+  border-radius: 18px;
+  padding: 28px 32px;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr auto;
+  align-items: center;
+  gap: 24px;
+
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.12);
+}
+
+/* each info block */
+.booking-item {
+  position: relative;
+  padding-right: 20px;
+}
+
+/* vertical divider */
+.booking-item:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 40px;
+  width: 1px;
+  background: #e5e7eb;
+}
+
+.booking-item small {
+  display: block;
+  color: #6b7280;
+  font-size: 12px;
+  margin-bottom: 4px;
+}
+
+.booking-item strong {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+/* button */
+.booking-bar button {
+  background: #2575fc;
+  color: #fff;
+  border: none;
+  padding: 14px 26px;
+  border-radius: 14px;
+  cursor: pointer;
+  font-weight: 600;
+  white-space: nowrap;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.booking-bar button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(37, 117, 252, 0.45);
+}
+
+
+
+
+/* Teachers list section */
+#teachers-section {
+  padding: 20px;
+  padding: 30px 120px;
+
+  /* text-align: center; */
+}
+
+#teachers-section h2 {
+  font-size: 2em;
+  color: #1e88e5;
+  margin-bottom: 30px;
+}
+
+.teachers-grid {
+  display: block;
+  /* flex-direction: column; */
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.teacher-card {
+  background: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  text-align: left;
+  transition: transform 0.2s ease-in-out;
+  margin-top: 30px;
+}
+
+.teacher-card:hover {
+  transform: translateY(-5px);
+}
+
+.teacher-card h4 {
+  font-size: 1.4em;
+  color: #333;
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.teacher-card p {
+  color: #555;
+  font-size: 0.95em;
+  margin-bottom: 5px;
+  font-weight: 500
+}
+
+.teacher-card .btn-book {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin-top: 15px;
+  background-color: #4f46e5;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1em;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.teacher-card .btn-book:hover {
+  background-color: #4338ca;
+}
+
+/* Auth warning specific to book.html */
+#auth-warning {
+  text-align: center;
+  background-color: #fff3cd;
+  border: 1px solid #ffeeba;
+  color: #856404;
+  padding: 15px;
+  border-radius: 8px;
+  margin: 30px auto;
+  max-width: 600px;
+}
+
+#auth-warning a {
+  color: #007bff;
+  text-decoration: underline;
+}
+
+/* Global elements that are styled in book.html */
+main {
+  padding: 16px;
+}
+
+input,
+select {
+  display: block;
+  margin: 20px 0px;
+  padding: 8px;
+  width: 100%;
+  max-width: 360px;
+}
+
+/* Footer styles */
+.footer {
+  background-color: #222;
+  margin: 0%;
+  padding: 15px;
+}
+
+.copy-text {
+  color: white;
+  text-align: center;
+}
+
+/* Modal styles */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.modal-backdrop.show {
+  display: flex;
+}
+
+.modal {
+  position: relative;
+  background: #fff;
+  padding: 24px;
+  border-radius: 10px;
+  width: 300px;
+  text-align: center;
+}
+
+.modal button {
+  width: 100%;
+  margin-top: 10px;
+  padding: 10px;
+  background-color: #4f46e5;
+border-radius: 7px;
+border: none;
+color: white;
+}
+
+.modal p{
+  font-size: small;
+  margin-top: 20px;
+}
+
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 1.2em;
+  font-weight: 600;
+  cursor: pointer;
+  color: #555; /* A subtle color for the 'X' */
+  padding: 0;
+  line-height: 1;
+  z-index: 10; /* Ensure it's above other modal content */
+}
+
+
+/* .modal cancel-button{
+  display: flex;
+  justify-content: left;
+  font-weight: 600;
+  cursor: pointer;
+} */
+
+
+/* small success toast/modal */
+.success-modal {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #10b981;
+  color: #fff;
+  padding: 12px 18px;
+  border-radius: 8px;
+  display: none;
+  z-index: 10000;
+}
+
+.success-modal.show {
+  display: block;
+}
+
+/* Media Queries specific to book.html layout */
+@media (max-width: 768px) {
+  .hero {
+    padding: 30px 15px;
+  }
+
+  .hero-text h2 {
+    font-size: 2em;
+  }
+
+  .hero-image .image-card {
+    width: 300px;
+    height: 200px;
+  }
+
+  .teachers-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  header {
+    flex-direction: column;
+    text-align: center;
+    padding: 10px 20px;
+  }
+  header h1 {
+    font-size: 20px;
+  }
+  #nav button.btn-logout {
+    margin-left: 0;
+    width: 100%;
+  }
+  .hero-text h2 {
+    font-size: 1.8em;
+  }
+  .hero-image .image-card {
+    width: 280px;
+    height: 180px;
+  }
+  #teachers-section h2 {
+    font-size: 1.8em;
+  }
+  h1 {
+    font-size: medium;
+    text-align: center;
+  }
+}

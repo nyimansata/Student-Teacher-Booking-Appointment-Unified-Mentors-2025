@@ -554,6 +554,39 @@ export function openBookingModal(teacherId) {
   setTimeout(() => purposeInput.focus(), 0);
 }
 
+// export function renderTeacherList(teachers, container) {
+//   container.innerHTML = "";
+//   const template = document.getElementById("teacher-card");
+
+//   // ensure modal is wired up once so opening is instant
+//   if (!__bookingModalInitialized) setupBookingModal();
+
+//   teachers.forEach((t) => {
+//     const node = template.content.cloneNode(true);
+//     node.querySelector(".teacher-name").textContent = t.name;
+//     node.querySelector(".teacher-dept").textContent = t.department || "";
+//     node.querySelector(".teacher-subject").textContent = t.subject || "";
+//     const btn = node.querySelector(".btn-book");
+//     btn.addEventListener("click", () => {
+//       console.log("Book clicked for teacher", t.id);
+//       // simply open modal quickly — handler already initialized
+//       openBookingModal(t.id);
+
+//       // small debug: check modal presence
+//       const bm = document.getElementById("booking-modal");
+//       console.log(
+//         "booking-modal element after click:",
+//         !!bm,
+//         bm ? bm.classList.toString() : null,
+//         "style.display=",
+//         bm ? bm.style.display : null,
+//       );
+//     });
+//     container.appendChild(node);
+//   });
+// }
+
+
 export function renderTeacherList(teachers, container) {
   container.innerHTML = "";
   const template = document.getElementById("teacher-card");
@@ -563,9 +596,10 @@ export function renderTeacherList(teachers, container) {
 
   teachers.forEach((t) => {
     const node = template.content.cloneNode(true);
-    node.querySelector(".teacher-name").textContent = t.name;
-    node.querySelector(".teacher-dept").textContent = t.department || "";
-    node.querySelector(".teacher-subject").textContent = t.subject || "";
+    // Modified lines to prepend labels
+    node.querySelector(".teacher-name").textContent = `Teacher's Name: ${t.name}`;
+    node.querySelector(".teacher-dept").textContent = `Department: ${t.department || "N/A"}`;
+    node.querySelector(".teacher-subject").textContent = `Subject: ${t.subject || "N/A"}`;
     const btn = node.querySelector(".btn-book");
     btn.addEventListener("click", () => {
       console.log("Book clicked for teacher", t.id);

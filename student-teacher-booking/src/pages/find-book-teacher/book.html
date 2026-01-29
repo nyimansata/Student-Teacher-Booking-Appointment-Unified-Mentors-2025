@@ -1,13 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <section id="dashboard" style="display: none">
-        <h2 id="dashboard-title">Dashboarddddddddnyim</h2>
-        <div id="content"></div>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Student Dashboard</title>
+    <link rel="stylesheet" href="./styles/book.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Find & Book Teachers</h1>
+      <nav id="nav"></nav>
+    </header>
+I
+    <main>
+      <section class="hero">
+        <div class="hero-text">
+          <h2>Find the Perfect Teacher for Your Learning</h2>
+          <p>
+            Book appointments, consult teachers, and manage your learning easily
+            from one platform.
+          </p>
+        </div>
+        <div class="hero-image">
+          <div class="image-card">
+            <img src="../../../assets/images/consult.jpg" alt="Teachers" />
+          </div>
+        </div>
+      </section>
+
+      <section id="teachers-section">
+        <h2>Available Teachers</h2>
+        <div id="teachers-list" class="teachers-grid"></div>
+      </section>
+
+            <!-- Booking modal for students -->
+            <div id="booking-modal" class="modal-backdrop" style="display: none">
+              <div class="modal">
+                <h3>Request Appointment</h3>
+                <input id="booking-purpose" placeholder="Purpose (short)" />
+                <input id="booking-when" type="datetime-local" />
+                <button id="booking-submit">Request</button>
+                <button id="booking-cancel">Not Now</button>
+              </div>
+            </div>
+
+      <!-- Success modal -->
+      <div id="success-modal" class="success-modal">
+        <span id="success-message"></span>
+      </div>
+
+      <div id="auth-warning" style="display: none; margin-top: 24px">
+        <p>
+          You must be signed in as a <strong>student</strong> to view this page.
+        </p>
+        <a href="../../index.html">Go to Home / Login</a>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <p class="copy-text">&copy; Nyimansata Fofana</p>
+    </footer>
+
+    <!-- Template for teacher cards -->
+    <template id="teacher-card">
+      <div class="teacher-card">
+        <h4 class="teacher-name"></h4>
+        <p class="teacher-dept"></p>
+        <p class="teacher-subject"></p>
+        <button class="btn-book">Book Appointment</button>
+      </div>
+    </template>
+
+    <script type="module" src="../../../assets/js/book.js"></script>
+  </body>
 </html>

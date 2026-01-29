@@ -2,32 +2,13 @@ import { initFirebase, firebaseStatus } from "../../src/services/firebase.js";
 import {
   registerUser,
   loginUser,
-  logoutUser,
   onAuthStateChanged,
   authDiagnostics,
   signInWithGoogle,
 } from "../../src/services/auth.js";
-import {
-  listTeachers,
-  renderTeacherList,
-  renderAdminTeacherList,
-} from "../../src/services/teacher.js";
-import {
-  listPendingTeachers,
-  approveTeacherRegistration,
-  rejectTeacherRegistration,
-  listLogs,
-} from "../../src/services/admin.js";
-import { addTeacher } from "../../src/services/teacher.js";
-import {
-  getAppointmentsForTeacher,
-  approveAppointment,
-  cancelAppointment,
-} from "../../src/services/appointments.js";
 
 initFirebase(); // 🔥 MUST run before auth.js logic
 
-// initFirebase();
 // show a small banner if firebase seems unconfigured
 try {
   const s = firebaseStatus();
@@ -89,11 +70,9 @@ if (btnAuthDiag) {
     }
   });
 }
+
 const btnRegister = document.getElementById("btn-register");
 const btnLogin = document.getElementById("btn-login");
-const btnLogout = document.createElement("button");
-btnLogout.textContent = "Logout";
-btnLogout.id = "btn-logout";
 const loginDiv = document.getElementById("login");
 const registerDiv = document.getElementById("register");
 const showLoginLink = document.getElementById("show-login");
@@ -170,167 +149,33 @@ showRegisterLink?.addEventListener("click", (e) => {
 // initial state
 showLogin();
 
-// admin
-async function renderAdminPanel() {
-  const pending = await listPendingTeachers();
-  const pendingList = document.getElementById("pending-list");
-  pendingList.innerHTML = "";
-  const tmpl = document.getElementById("pending-teacher");
-  pending.forEach((p) => {
-    const node = tmpl.content.cloneNode(true);
-    node.querySelector(".pending-name").textContent = p.name || "";
-    node.querySelector(".pending-email").textContent = p.email || "";
-    node.querySelector(".btn-approve").addEventListener("click", async () => {
-      const dept = prompt("Department (optional)");
-      const subject = prompt("Subject (optional)");
-      await approveTeacherRegistration(p.id, { department: dept, subject });
-      node.remove();
-      alert("Teacher approved");
-      // refresh teacher list
-      const teachers = await listTeachers();
-      renderAdminTeacherList(
-        teachers,
-        document.getElementById("admin-teacher-list")
-      );
-    });
-    node.querySelector(".btn-reject").addEventListener("click", async () => {
-      if (confirm("Reject registration?")) {
-        await rejectTeacherRegistration(p.id);
-        node.remove();
-        alert("Teacher registration rejected");
-      }
-    });
-    pendingList.appendChild(node);
-  });
-
-  // show teachers for admin management
-  const tList = await listTeachers();
-  renderAdminTeacherList(tList, document.getElementById("admin-teacher-list"));
-
-  // logs
-  const logs = await listLogs(50);
-  const logsContainer = document.getElementById("logs");
-  logsContainer.innerHTML = "";
-  logs.forEach((l) => {
-    const el = document.createElement("div");
-    el.textContent = `${new Date(
-      l.ts.seconds ? l.ts.seconds * 1000 : l.ts
-    ).toLocaleString()} - ${l.userId} - ${l.action} - ${JSON.stringify(
-      l.details || {}
-    )}`;
-    logsContainer.appendChild(el);
-  });
-}
-
-// Render appointments for a teacher
-async function renderTeacherAppointments(teacherId) {
-  const content = document.getElementById("content");
-  content.innerHTML = "";
-  const tmpl = document.getElementById("teacher-appointment");
-  const appts = await getAppointmentsForTeacher(teacherId);
-  if (!appts || appts.length === 0) {
-    content.textContent = "No appointment requests yet.";
-    return;
-  }
-  appts.forEach((a) => {
-    const node = tmpl.content.cloneNode(true);
-    const el = node.querySelector(".appointment-card");
-    el.querySelector(".student-name").textContent =
-      a.studentName || a.studentId;
-    el.querySelector(".appointment-when").textContent = a.when || "";
-    el.querySelector(".appointment-purpose").textContent = `Purpose: ${
-      a.purpose || ""
-    }`;
-    el.querySelector(".appointment-status").textContent = `Status: ${
-      a.status || "pending"
-    }`;
-
-    const btnApprove = el.querySelector(".btn-approve-appt");
-    const btnCancel = el.querySelector(".btn-cancel-appt");
-
-    btnApprove.addEventListener("click", async () => {
-      try {
-        await approveAppointment(a.id);
-        await renderTeacherAppointments(teacherId);
-      } catch (err) {
-        console.error(err);
-        alert(err.message || "Approve failed");
-      }
-    });
-
-    btnCancel.addEventListener("click", async () => {
-      if (!confirm("Cancel this appointment?")) return;
-      try {
-        await cancelAppointment(a.id);
-        await renderTeacherAppointments(teacherId);
-      } catch (err) {
-        console.error(err);
-        alert(err.message || "Cancel failed");
-      }
-    });
-
-    content.appendChild(el);
-  });
-}
-
+// The onAuthStateChanged listener in app.js now solely handles redirections based on user role
+// and showing/hiding the authentication section.
 onAuthStateChanged(async (user) => {
   const authSection = document.getElementById("auth-section");
-  const dashboard = document.getElementById("dashboard");
-  const nav = document.getElementById("nav");
+  const nav = document.getElementById("nav"); // Get nav here if needed, but only for clearing if logged out.
 
   if (user) {
-    authSection.style.display = "none";
-    dashboard.style.display = "block";
-    nav.innerHTML = "";
-    nav.appendChild(btnLogout);
+    // If a user is logged in
+    authSection.style.display = "none"; // Hide the authentication forms
 
-    // show teacher list for student (default student view)
+    // Redirect based on user role
     if (!user.profile || user.profile.role === "student") {
-      listTeachers().then((teachers) => {
-        renderTeacherList(teachers, document.getElementById("content"));
-      });
-    }
-
-    // if teacher, send to teacher page
-    if (user.profile && user.profile.role === "teacher") {
+      window.location.href = "src/pages/find-book-teacher/book.html";
+      return;
+    } else if (user.profile && user.profile.role === "teacher") {
       window.location.href = "src/pages/teacher/teacher.html";
       return;
-    }
-
-    // if admin, render admin panel
-    if (user.profile && user.profile.role === "admin") {
-      document.getElementById("admin-panel").style.display = "block";
-      renderAdminPanel();
+    } else if (user.profile && user.profile.role === "admin") {
       window.location.href = "src/pages/admin/admin.html";
+      return;
     }
-
-    btnLogout.addEventListener("click", async () => {
-      await logoutUser();
-      location.reload();
-    });
   } else {
+    // If no user is logged in, show the authentication section
     authSection.style.display = "block";
-    dashboard.style.display = "none";
-    nav.innerHTML = "";
+    // Ensure the nav is empty on index.html when logged out, as user-specific buttons are not needed here.
+    if (nav) {
+      nav.innerHTML = "";
+    }
   }
 });
-
-// refresh logs button
-const btnRefreshLogs = document.getElementById("btn-refresh-logs");
-if (btnRefreshLogs) {
-  btnRefreshLogs.addEventListener("click", async () => {
-    const logsContainer = document.getElementById("logs");
-    logsContainer.innerHTML = "Refreshing...";
-    const logs = await listLogs(50);
-    logsContainer.innerHTML = "";
-    logs.forEach((l) => {
-      const el = document.createElement("div");
-      el.textContent = `${new Date(
-        l.ts.seconds ? l.ts.seconds * 1000 : l.ts
-      ).toLocaleString()} - ${l.userId} - ${l.action} - ${JSON.stringify(
-        l.details || {}
-      )}`;
-      logsContainer.appendChild(el);
-    });
-  });
-}
