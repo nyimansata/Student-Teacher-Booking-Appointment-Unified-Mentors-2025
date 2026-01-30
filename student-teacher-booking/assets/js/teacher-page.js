@@ -41,8 +41,14 @@ async function renderTeacherPanel(
 
   const tmpl = document.getElementById("teacher-appointment");
 
-  const appts = await getAppointmentsForTeacher(teacherUid);
-  console.log(teacherUid, "this is me");
+  let appts = await getAppointmentsForTeacher(teacherUid);
+  console.log("Appointments fetched with teacherUid:", teacherUid, appts);
+
+  // Fallback to teacherDocId if no appointments found with teacherUid
+  if (appts.length === 0 && teacherDocId) {
+    console.log("No appointments found with teacherUid, trying with teacherDocId:", teacherDocId);
+    appts = await getAppointmentsForTeacher(teacherDocId);
+  }
 
   console.log("Appointments fetched:", appts.length, appts);
 

@@ -40,19 +40,23 @@ try {
 async function renderAdminPanel() {
   // pending registrations
   const pending = await listPendingTeachers();
+  console.log("Pending teachers fetched:", pending);
   const pendingList = document.getElementById("pending-list");
   pendingList.innerHTML = "";
+  console.log("Pending teachers array before rendering:", pending); // Added log
   const tmpl = document.getElementById("pending-teacher");
   pending.forEach((p) => {
     const node = tmpl.content.cloneNode(true);
-    node.querySelector(".pending-name").textContent = p.name || "";
-    node.querySelector(".pending-email").textContent = p.email || "";
-    node.querySelector(".btn-approve").addEventListener("click", async () => {
+    const teacherCardElement = node.querySelector(".teacher-card"); // Get reference to the actual card element
+    teacherCardElement.querySelector(".pending-name").textContent = p.name || "";
+    teacherCardElement.querySelector(".pending-email").textContent = p.email || "";
+    console.log("Approve button click detected for pending teacher with ID:", p.id);
+    teacherCardElement.querySelector(".btn-approve").addEventListener("click", async () => {
       const dept = prompt("Department (optional)");
       const subject = prompt("Subject (optional)");
       try {
         await approveTeacherRegistration(p.id, { department: dept, subject });
-        node.remove();
+        teacherCardElement.remove(); // Now remove the actual card element
         alert("Teacher approved");
         refreshTeacherList();
         refreshLogs();
@@ -158,6 +162,10 @@ async function refreshTeacherList() {
 async function refreshLogs() {
   const logs = await listLogs(50);
   const logsContainer = document.getElementById("logs");
+  if (!logsContainer) {
+    console.warn("Logs container element with ID 'logs' not found in the DOM.");
+    return;
+  }
   logsContainer.innerHTML = "";
   logs.forEach((l) => {
     const el = document.createElement("div");
