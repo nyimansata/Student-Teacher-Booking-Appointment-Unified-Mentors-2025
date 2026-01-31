@@ -56,6 +56,7 @@ export async function approveTeacherRegistration(
     subject,
     userId: userId, // explicitly set userId
     createdAt: serverTimestamp(),
+    status: "approved",
   });
   console.log("Teacher document created/updated for userId:", userId);
 

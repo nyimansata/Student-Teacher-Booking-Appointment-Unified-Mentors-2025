@@ -39,17 +39,7 @@ export async function addTeacher({ name, department, subject, email }) {
     console.log("Created new user document with pending_teacher role for:", email, "UID:", userId);
   }
 
-  // Then, create the teacher document (as it was before, but ensuring userId is linked)
-  const docRef = await addDoc(collection(db, "teachers"), {
-    name,
-    department,
-    subject,
-    email,
-    userId: userId, // Link the teacher document to the user's ID
-    createdAt: new Date(),
-  });
-  console.log("Teacher document created with ID:", docRef.id);
-  return docRef.id;
+  return userId;
 }
 
 export async function updateTeacher(id, data) {
@@ -64,7 +54,8 @@ export async function deleteTeacher(id) {
 
 export async function listTeachers() {
   const db = getFirestoreDB();
-  const snap = await getDocs(collection(db, "teachers"));
+  const q = query(collection(db, "teachers"), where("status", "==", "approved"));
+  const snap = await getDocs(q);
   const list = [];
   snap.forEach((d) => list.push({ id: d.id, ...d.data() }));
   return list;

@@ -52,14 +52,10 @@ async function renderAdminPanel() {
     teacherCardElement.querySelector(".pending-email").textContent = p.email || "";
     console.log("Approve button click detected for pending teacher with ID:", p.id);
     teacherCardElement.querySelector(".btn-approve").addEventListener("click", async () => {
-      const dept = prompt("Department (optional)");
-      const subject = prompt("Subject (optional)");
       try {
-        await approveTeacherRegistration(p.id, { department: dept, subject });
-        teacherCardElement.remove(); // Now remove the actual card element
-        alert("Teacher approved");
-        refreshTeacherList();
-        refreshLogs();
+        await approveTeacherRegistration(p.id, { department: p.department || "", subject: p.subject || "" });
+        showSuccessModal(`Teacher ${p.name} (${p.email}) approved successfully!`);
+        renderAdminPanel(); // Refresh all sections
       } catch (err) {
         console.error(err);
         alert(err.message || "Approval failed");
@@ -69,9 +65,8 @@ async function renderAdminPanel() {
       if (!confirm("Reject registration?")) return;
       try {
         await rejectTeacherRegistration(p.id);
-        node.remove();
-        alert("Teacher registration rejected");
-        refreshLogs();
+        showSuccessModal(`Teacher ${p.name} (${p.email}) registration rejected.`);
+        renderAdminPanel(); // Refresh all sections
       } catch (err) {
         console.error(err);
         alert(err.message || "Reject failed");
@@ -259,8 +254,7 @@ if (btnAddTeacher) {
       deptInput.classList.remove("input-error");
       subjectInput.classList.remove("input-error");
 
-      refreshTeacherList();
-      refreshLogs();
+      renderAdminPanel(); // Refresh all sections including pending teachers
       showSuccessModal("Teacher added successfully ");
     } catch (err) {
       console.error(err);
